@@ -1,3 +1,62 @@
-fn main() {
-    println!("Hello, world!");
+mod objects;
+mod math;
+
+use macroquad::prelude::*;
+use crate::objects::Cube;
+use crate::math::rotmat::Rotma3f;
+use crate::objects::graphics::*;
+
+fn window_conf() -> Conf {
+    Conf {
+        window_title: "cube 3D".to_owned(),
+        window_width: RESOLUTION[0],
+        window_height: RESOLUTION[1],
+        ..Default::default()
+    }
+}
+
+#[macroquad::main("Test Window")]
+async fn main() {
+    
+
+    let n = ( RESOLUTION[1] as f32) * ( 1.0 / ( FOV / 2.0 ).tan() ); 
+    let mut test: Cube = Cube::new(40.0, 5.0, 200.0, 200.0, 100.0);
+    
+    let step = 5.0; // pixels per second
+    let mut transform_mode: bool = false;
+    let mut rotate_mode: bool = !transform_mode;
+
+    let tester: Rotma3f = Rotma3f::x_rot(1.0);
+    println!("{:?}", tester);
+
+    loop {
+
+        let dt = get_frame_time();
+        clear_background(BLACK);
+        test.render_front();
+
+        if is_key_down(KeyCode::E) {
+            transform_mode ^= true; //xor gate bool flip
+            rotate_mode ^= true; //xor gate bool flip
+        }
+
+        if transform_mode {
+            if is_key_down(KeyCode::W) {
+                test.transform(0.0, -step, 0.0);
+            }
+            if is_key_down(KeyCode::S) {
+                test.transform(0.0, step, 0.0);
+            }
+            if is_key_down(KeyCode::A) {
+                test.transform(-step, 0.0, 0.0);
+            }
+            if is_key_down(KeyCode::D) {
+                test.transform(step, 0.0, 0.0);
+            }
+        }
+
+        draw_text("IT WORKS!", 20.0, 20.0, 30.0, YELLOW);
+
+        next_frame().await
+    }
 }
