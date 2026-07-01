@@ -72,11 +72,11 @@ impl Cube {
         draw_line(buffer[2][0], buffer[2][1], buffer[3][0], buffer[3][1], self.thickness, WHITE); // Top-front
         draw_line(buffer[6][0], buffer[6][1], buffer[7][0], buffer[7][1], self.thickness, WHITE); // Bottom-front
         draw_line(buffer[2][0], buffer[2][1], buffer[6][0], buffer[6][1], self.thickness, WHITE); // Front-right-side
-        draw_line(buffer[3][0], buffer[3][1], buffer[7][0], buffer[7][1], self.thickness, WHITE); //Front-left-side
+        draw_line(buffer[3][0], buffer[3][1], buffer[7][0], buffer[7][1], self.thickness, WHITE); // Front-left-side
 
-        draw_line();
-        draw_line();
-        draw_line();
-        draw_line();
+        draw_line(buffer[0][0], buffer[0][1], buffer[2][0], buffer[2][1], self.thickness, WHITE); // Top-right-corner
+        draw_line(buffer[1][0], buffer[1][1], buffer[3][0], buffer[3][1], self.thickness, WHITE); // Top-left-corner
+        draw_line(buffer[4][0], buffer[4][1], buffer[6][0], buffer[6][1], self.thickness, WHITE); // Bottom-right-corner
+        draw_line(buffer[5][0], buffer[5][1], buffer[7][0], buffer[7][1], self.thickness, WHITE); // Bottom-left-corner
     }
 }

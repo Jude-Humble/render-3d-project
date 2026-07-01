@@ -33,7 +33,7 @@ async fn main() {
 
         let dt = get_frame_time();
         clear_background(BLACK);
-        test.render_front();
+        test.render(n);
 
         if is_key_down(KeyCode::E) {
             transform_mode ^= true; //xor gate bool flip
@@ -54,8 +54,6 @@ async fn main() {
                 test.transform(step, 0.0, 0.0);
             }
         }
-
-        draw_text("IT WORKS!", 20.0, 20.0, 30.0, YELLOW);
 
         next_frame().await
     }
