@@ -36,7 +36,7 @@ impl Rotma3f {
         }
     }
 
-    pub fn multiply(&self, to_mult: &mut [Vec3f; 4]) {
+    pub fn multiply(&mut self, to_mult: &mut [Vec3f; 4]) {
         for i in 0..4 {
             to_mult[i] = Vec3f {
                 x: 

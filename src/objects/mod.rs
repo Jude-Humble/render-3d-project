@@ -2,6 +2,7 @@ pub mod graphics;
 
 use crate::math::quaternion::Quaternion;
 use crate::math::vec3::Vec3f;
+use crate::math::rotmat::Rotma3f;
 use macroquad::prelude::*;
 
 #[derive(Debug)]
@@ -46,11 +47,18 @@ impl Cube {
         }
     }
 
-    pub fn render_front(&self) {
-        draw_line(self.top[0].x, self.top[0].y, self.top[1].x, self.top[1].y, self.thickness, WHITE);
-        draw_line(self.top[1].x, self.top[1].y, self.bottom[1].x, self.bottom[1].y, self.thickness, WHITE);
-        draw_line(self.bottom[0].x, self.bottom[0].y, self.bottom[1].x, self.bottom[1].y, self.thickness, WHITE);
-        draw_line(self.bottom[0].x, self.bottom[0].y, self.top[0].x, self.top[0].y, self.thickness, WHITE);
+    pub fn rotate(&mut self, theta: f32, dir: i8) {
+        let mut rotation_matrix: Rotma3f;
+
+        match dir {
+            0 => rotation_matrix = Rotma3f::x_rot(theta),
+            1 => rotation_matrix = Rotma3f::y_rot(theta),
+            2 => rotation_matrix = Rotma3f::z_rot(theta),
+            _ => panic!("Invalid Direction Index For Rotation!"),
+        }
+
+        rotation_matrix.multiply(&mut self.top);
+        rotation_matrix.multiply(&mut self.bottom);
     }
 
     pub fn render(&self, n: f32) {

@@ -53,6 +53,8 @@ async fn main() {
             if is_key_down(KeyCode::D) {
                 test.transform(step, 0.0, 0.0);
             }
+        } else {
+            test.rotate(-0.01, 0);
         }
 
         next_frame().await
