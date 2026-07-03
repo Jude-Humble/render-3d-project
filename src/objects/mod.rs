@@ -61,15 +61,15 @@ impl Cube {
         rotation_matrix.multiply(&mut self.bottom);
     }
 
-    pub fn render(&self, n: f32) {
+    pub fn render(&self, n: f32, cam_offset: [f32; 2]) {
 
         let mut buffer: Vec<[f32; 2]> = Vec::new();
 
         for i in 0..4 {
-            buffer.push(graphics::perspectivate(&self.top[i], n));
+            buffer.push(graphics::perspectivate(&self.top[i], n, cam_offset));
         }
         for i in 0..4 {
-            buffer.push(graphics::perspectivate(&self.bottom[i], n));
+            buffer.push(graphics::perspectivate(&self.bottom[i], n, cam_offset));
         }
 
         draw_line(buffer[0][0], buffer[0][1], buffer[1][0], buffer[1][1], self.thickness, WHITE); // Top-back
